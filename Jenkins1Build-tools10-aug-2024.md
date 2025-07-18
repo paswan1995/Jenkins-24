@@ -140,7 +140,7 @@
     * remote
     * central 
 
-![](images/1.jpg)
+![](Images/1.jpg)
 
 # Building Sample Project
 
