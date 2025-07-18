@@ -214,7 +214,7 @@ mvn clean package
 | `mvn clean`         | clean            | Removes the `target` directory and build artifacts                    | Cleans up all generated files                       |
                      |
 
-![](images/7.jpg)
+![preview](images/7.jpg)
 
 ![](images/6.jpg)
 
