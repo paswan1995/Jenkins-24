@@ -215,8 +215,9 @@ mvn clean package
                      |
 
 ![Preview](images/7.jpg)
-
+![Preview](images/8.png)
 ![](images/6.jpg)
+
 
 # Multi-project model: 
 
