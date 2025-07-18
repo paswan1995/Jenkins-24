@@ -194,11 +194,11 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 cd spring-petclinic
 mvn clean package 
 ```
-![](images/2.jpg)
+![](Images/2.jpg)
 
-![](images/3.jpg)
+![](Images/3.jpg)
 
-![](images/4.jpg)
+![](Images/4.jpg)
 
 
 | Command             | Lifecycle Phase  | What It Does                                                           | Output/Effect                                       |
@@ -214,9 +214,9 @@ mvn clean package
 | `mvn clean`         | clean            | Removes the `target` directory and build artifacts                    | Cleans up all generated files                       |
                      |
 
-![Preview](images/7.jpg)
-![Preview](images/8.png)
-![](images/6.jpg)
+![Preview](Images/7.jpg)
+
+![](Images/6.jpg)
 
 
 # Multi-project model: 
