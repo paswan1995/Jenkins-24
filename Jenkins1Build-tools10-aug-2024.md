@@ -1,5 +1,67 @@
 # Build 
    
+step by step to **build your project** using DevOps practices. 
+
+---
+
+### ✅ Step 1: Understand Your Project
+
+Please share the following details:
+
+1. **What kind of project is it?**
+
+   * Java, Python, Node.js, PHP, etc.?
+   * Monolithic or microservices?
+   * Frontend + Backend?
+
+2. **Where is the code?**
+
+   * GitHub / GitLab / Bitbucket?
+   * If private, do you have access?
+
+3. **What is your goal?**
+
+   * Just build the code?
+   * Build + Test?
+   * Full CI/CD (Build, Test, Deploy automatically)?
+
+---
+
+Once I have this, we’ll follow this typical DevOps path:
+
+---
+
+### 🚀 DevOps Project Flow (Simplified)
+
+| Step | Stage                           | Tool                             | What It Does                              |
+| ---- | ------------------------------- | -------------------------------- | ----------------------------------------- |
+| 1️⃣  | **Source Code Management**      | Git + GitHub                     | Store and manage your code                |
+| 2️⃣  | **Build**                       | Maven / Gradle / npm / pip       | Convert source code into a build artifact |
+| 3️⃣  | **CI (Continuous Integration)** | Jenkins / GitHub Actions         | Automatically build and test code         |
+| 4️⃣  | **Dockerization**               | Docker                           | Package app into containers               |
+| 5️⃣  | **Image Storage**               | Docker Hub / ECR                 | Save and share Docker images              |
+| 6️⃣  | **Deployment**                  | Kubernetes / EC2 / Azure / Local | Run the app on a server                   |
+| 7️⃣  | **Monitoring**                  | Prometheus + Grafana (optional)  | Track health of the app                   |
+
+---
+
+### 📘 Example Scenario (Java + Jenkins)
+
+Let’s assume a **Java Maven project** stored in **GitHub**, and you want to build and deploy it with **Jenkins** and **Docker**.
+
+Here’s the high-level step plan:
+
+1. ✅ Clone code from GitHub
+2. 🔨 Build using Maven
+3. ✅ Configure Jenkins for CI
+4. 🐳 Create Dockerfile to containerize the app
+5. 📦 Push Docker image to Docker Hub
+6. 🚀 Deploy container on your server or local machine
+7. 📈 (Optional) Add monitoring later
+
+---
+
+
 ### Set environment variable
   * `sudo vi /etc/environment`
       * set in last there is a `games:/snap/bin:/opt/apache-maven-3.9.8/bin"` 
@@ -511,16 +573,120 @@ mvn clean package
 * Try building game-of-life : [Refer](https://github.com/wakaleo/game-of-life.git)
 
 * __References:__ 
- * Libraries: Library is a reusable code. Libraries are of two types
-   * static library:
-   * dynamic library:
+
+  * __Libraries__ Library is a collection of reusable code. It helps Developers avoid writing the same code again and again. It can use Library to perform common tasks to connecting to database, sending emails or loggin. 
+      * __Libraries are of two types__
+          * __static library__ 
+                * Code is copied into your program when you compile it.
+                * The final file (like .exe) contains everything, including the library.
+                * No need for the library at runtime — it’s already part of the program.
+                * File extensions:
+                * Windows: `.lib`
+                * Linux: `.a`
+          * __Dynamic Library (Shared Library)__
+                * Code is not copied during compilation.
+                * Linked at runtime — the program depends on the external library file.
+                * Smaller executable size.
+                * File extensions:
+                * Windows: `.dll` (Dynamic Link Library)
+                * Linux: `.so` (Shared Object)
+          *  Advantage: Smaller file size, easy to update the library without recompiling your code.
+          *  Disadvantage: If the library is missing or changed, your program may crash.
+
+🧩 Summary Table:
+
+| Feature         | Static Library   | Dynamic Library      |
+| --------------- | ---------------- | -------------------- |
+| Linking Time    | Compile Time     | Run Time             |
+| File Size       | Larger           | Smaller              |
+| Performance     | Faster           | Slightly Slower      |
+| Update Library? | Recompile needed | No need to recompile |
+| Extensions      | `.lib` / `.a`    | `.dll` / `.so`       |
+
  
  * Dependency: Dependency at a source code level, means relying on libraries to acheive some funtionility. 
 
-* Modern build tools
-   * build code 
-   * dependency management
-   * artifact versioning and storage support
+* __Modern build tools__: Modern build tools help automate and manage the process of building software. 
+      * Think of them like assistants that handle:
+        * Compiling code
+        * Managing required libraries (dependencies)
+        * Creating final packaged files (artifacts)
+        * Keeping track of versions
+    
+     * __build code__ 
+           * This means compiling source code `(like .java, .cpp, or .ts files)` into executable files `(like .jar, .exe, etc.)`.
+           * The build tool runs all the steps: compiling, testing, packaging.
+           * Example:
+             * Java → `.java` files compiled into `.class`, then packaged into `.jar` using Maven or Gradle
+ 
+     * __dependency management__ 
+           * Most projects depend on external libraries `(like JUnit for testing, Spring Boot, etc.)`.
+           * Build tools automatically download and include these libraries, so you don’t have to do it manually.
+           * Example:
+              * In Maven, you write this in `pom.xml`:
+               
+                ```xml
+                <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13.2</version>
+                </dependency>
+                ```
+              * Maven will fetch this from the internet and include it in your project.
+
+ 
+     * __Artifact Versioning and Storage Support__
+           
+          * Once the build is done, the output (e.g.,`.jar, .war, .zip`) is called an artifact.
+          * Build tools can:
+               * Tag artifacts with versions (`v1.0, v2.1.3`)
+               * Upload them to artifact repositories (like ``Nexus, JFrog Artifactory, or GitHub Packages`) for storage and sharing
+ 
+     * Example:
+
+          * After building, Maven can upload the `.jar` to Nexus under version `1.0.0-SNAPSHOT`
+          * Jenkins pipelines often use this step to `store built packages`
+
+
+__🔧 Popular Modern Build Tools__
+
+| Language | Build Tool          |
+| -------- | ------------------- |
+| Java     | Maven, Gradle       |
+| Python   | setuptools, poetry  |
+| Node.js  | npm, yarn           |
+| C++      | Make, CMake         |
+| .NET     | MSBuild, dotnet CLI |
+
+
+__🛠️ In Jenkins CI/CD__
+
+ * In a Jenkins job, these tools are often part of the pipeline:
+
+```java
+groovy
+
+pipeline {
+  stages {
+    stage(`Build`) {
+      steps {
+        sh `mvn clean install` // Build and manage dependences
+      }
+    }
+    stage(`Upload Artifacts`) {
+      steps {
+        sh `mvn deploy`       // Upload to Nexus or Artifactory 
+      }
+    }
+  }
+}
+```
+
+__🔍 Real-Time Use:__
+
+  * When you create a Jenkinsfile in your project (for GitHub or GitLab), its written in Groovy DSL. 
+  * So whenever someone pushes code, Jenkins reads the `Jenkinsfile` (written in Groovy) and run the pipeline steps automatically. 
+
 
 ---
 
